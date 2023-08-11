@@ -25,13 +25,26 @@ export const MainContent = styles.div`
         .file-imageInput-wrapper {
             
             margin-top: -28px;
-        
+            
             h1 {
                 color: ${ ({theme}) => theme.COLORS.INPUT_TITLE };
                 font-family: Roboto;
-                font-size: 17px;
+                font-size: 16px;
+                font-weight: 300;
 
                 margin-bottom: 10px;
+            }
+
+            span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            @media (min-width: 1024px) {
+                span {
+                    max-width: 200px;
+                }
             }
             
             label {

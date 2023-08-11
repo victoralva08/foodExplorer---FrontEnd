@@ -12,6 +12,28 @@ export const Container = styles.div`
     padding: 24px 55px;
     margin: 0 20px;
 
+    ::-webkit-scrollbar {
+        height: 5px;
+        width: auto; 
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: none; 
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background-color: hsla(353, 95%, 24%, 1); 
+        border-radius: 16px; 
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: hsla(353, 95%, 20%, 1); 
+    }
+    
+    ::-webkit-scrollbar-thumb:active {
+        background-color: hsla(353, 95%, 15%, 1); 
+    }
+
     input {
         position: relative;
         left: 106px;
@@ -24,7 +46,7 @@ export const Container = styles.div`
 
     label::before{
         position: relative;
-        left: 105px;
+        left: 120px;
         top: -30px;
 
         margin-bottom: -30px;
@@ -45,16 +67,26 @@ export const Container = styles.div`
     }
 
     img {
+        max-width: 200px;
+        max-height: 200px;
         margin-bottom: 15px;
     }
 
     h2 {
+
         margin-bottom: 15px;
-        white-space: nowrap;
+        max-width: 200px;
+        white-space: wrap;
+        overflow: auto;
+        text-align: center;
+
+        padding-bottom: 20px;
+
     }
 
     p {
         color: ${ ({theme}) => theme.COLORS.INPUT_TEXT };
+        text-align: center;
     }
 
     h1 {

@@ -16,7 +16,7 @@ export const Container = styles.div`
     
     `
     export const OpeningCard = styles.div`
-    
+
     &::before {
         
         background: linear-gradient(180deg, #091E26 0%, #00131C 100%);
@@ -118,7 +118,7 @@ export const Container = styles.div`
 `
 
 export const List = styles.div`
-
+    
     width: 100vw;
     margin: 22px 0 85px 0;
     

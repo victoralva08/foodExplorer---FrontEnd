@@ -1,6 +1,6 @@
 import { Container } from './styles'
 
-export default function Select ({id, ...rest}) {
+export default function Select ({id, value, ...rest}) {
 
     return (
 
@@ -8,10 +8,10 @@ export default function Select ({id, ...rest}) {
 
         <label htmlFor={id}>Category</label>
 
-        <select id={id}>
-            <option value="meals">Meal</option>
-            <option value="desserts">Dessert</option>
-            <option value="drinks">Drink</option>
+        <select value={value ? "Meals" : value} id={id} {...rest}>
+            <option value="Meals">Meal</option>
+            <option value="Desserts">Dessert</option>
+            <option value="Drinks">Drink</option>
         </select>
 
         </Container>
