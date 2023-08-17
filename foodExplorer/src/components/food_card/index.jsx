@@ -4,10 +4,11 @@ import ButtonText from '../../components/button_text'
 
 import { AiOutlinePlus } from 'react-icons/ai'
 import { AiOutlineMinus } from 'react-icons/ai'
+import { BsFillPencilFill } from 'react-icons/bs'
 
 import { api } from '../../services/api'
 import { useEffect, useState } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
 import { updateValue } from '../../reduxHook/store'
@@ -19,9 +20,12 @@ export default function FoodCard({ id, name, category, image, description, price
     const [ quantity, setQuantity ] = useState(1)
     const [ isDishFavorited, setDishIsFavorite ] = useState(false)
     const [ favoriteDishResponse, setFavoriteDishResponse ] = useState([])
+    const [ isUserAdmin, setIsUserAdmin ] = useState(0) 
 
     const dispatch = useDispatch()
     const contextDataObject = useAuthContext() 
+
+    const navigate = useNavigate()
 
     function addQuantity () {
         setQuantity ( Number(quantity) + 1 )
@@ -33,33 +37,33 @@ export default function FoodCard({ id, name, category, image, description, price
         }
     }
 
-    async function fetchCheckoutDishCartQuantity () {
-        
-        const dishTotalCartQuantity = await api.get(`/cart`) 
-        console.log(dishTotalCartQuantity.data)
-
-        contextDataObject.saveGlobalCartQuantity(dishTotalCartQuantity.data)
-        dispatch( updateValue(dishTotalCartQuantity.data) )
-
-    }
-    
     async function addDishToCheckoutCart () {
-
+        
         const dishData = {
             name, price, image, quantity
         }
-
+        
+        
         await api.post(`/cart/${id}`, dishData)
         .then(() => {
-
-        alert("Dish added to cart.")
-        fetchCheckoutDishCartQuantity()
-
+            
+            alert("Dish added to cart.")
+            fetchCheckoutCartQuantity()
+            
         })
         .catch(error => {
             console.log(error)
         })
-
+        
+    }
+    
+    async function fetchCheckoutCartQuantity () {
+            
+        const TotalCartQuantity = await api.get(`/cart`) 
+    
+        contextDataObject.saveGlobalCartQuantity(TotalCartQuantity.data)
+        dispatch( updateValue(TotalCartQuantity.data) )
+        
     }
 
     async function FavoriteDish () {
@@ -110,6 +114,14 @@ export default function FoodCard({ id, name, category, image, description, price
         }
 
     }
+
+    function handleDetails() {
+        navigate(`/details/${id}`)
+    }
+
+    function handleEditDish() {
+        navigate(`/edit-dish/${id}`)
+    }
    
     useEffect( () => {
         
@@ -117,7 +129,13 @@ export default function FoodCard({ id, name, category, image, description, price
             setFavoriteDishResponse( await api.get(`/favorites/${id}`) )
         }
         
+        async function checkUserAdmin () {
+            setIsUserAdmin( await api.get(`/users`) )
+        }
+
         fetchFavoriteDishes()
+        fetchCheckoutCartQuantity()
+        checkUserAdmin()  
         
     }, [])
     
@@ -133,18 +151,36 @@ export default function FoodCard({ id, name, category, image, description, price
 
     return (
         <Container {...rest}>
+
+            {
             
+            isUserAdmin.data ?
+
+            <Button className="edit-button" icon={BsFillPencilFill} onClick={ handleEditDish }/>
+            
+            :
+
             <div className="input-wrapper">
                 <input type="checkbox" id={id} onChange={handleFavoriteDishInput} checked={isDishFavorited}/> 
                 <label htmlFor={id}></label>
             </div>
-          
+            
+            }
+
             <img src={`${api.defaults.baseURL}/files/${image}`} alt="Dish image" />
 
-            <h2>{name} →</h2>
+            <h2 onClick={ () => handleDetails(id)} > {name} →</h2>
             <p>{description}</p>
 
             <h1>R$ {price}</h1>
+
+            {
+
+            isUserAdmin.data ?
+
+            null 
+
+            :
 
             <div className="checkout">
 
@@ -161,6 +197,8 @@ export default function FoodCard({ id, name, category, image, description, price
                 <ButtonText className="checkout-button" title="Include" onClick={addDishToCheckoutCart}/>
 
             </div>
+
+            }   
 
 
         </Container>

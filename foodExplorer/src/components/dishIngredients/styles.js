@@ -27,6 +27,10 @@ export const Container = styles.div`
         color: ${({ theme }) => theme.COLORS.INPUT_TEXT}; 
     }
 
+    &:focus-within {
+        outline: 1px solid ${({ theme }) => theme.COLORS.INPUT_TEXT};
+    }
+
     > input {
        
         padding: 8px 12px;

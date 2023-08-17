@@ -2,13 +2,18 @@ import { Container, Form } from "./styles.js"
 
 import Logo from '../../components/logo'
 import Input from '../../components/input'
-
 import ButtonText from "../../components/button_text/index.jsx"
+import Button from "../../components/button/index.jsx"
+
 import { useAuthContext } from "../../authHook/context.jsx"
 
 import { useState } from 'react'
+import { useNavigate } from "react-router-dom"
+
 
 function SignIn() {
+
+  const navigate = useNavigate()
   
   const contextDataObject = useAuthContext() // calling the context object
   
@@ -40,6 +45,10 @@ function SignIn() {
 
   }
 
+  function handleNavigate() {
+    navigate('/register')
+  }
+
 
   return (
 
@@ -50,16 +59,21 @@ function SignIn() {
     <Form>
       
       <h1>Login</h1>
+
       <Input className="input" placeholder="Example: example@example.com" title="Email" onChange={e => setEmail(e.target.value)}/>
+
       <Input type={inputType} className="input" placeholder="Minimum 6 characters" title="Password" onChange={e => setPassword(e.target.value)}/>
 
       <div className="show-password-checkbox">
+
         <input type="checkbox" id="password-visible-check" onChange={showPassword} /> 
         <label htmlFor="password-visible-check">Show Password</label>
+
       </div>
 
       <ButtonText className="signIn-button" title="Sign In" onClick={handleSignIn} />
-      <p>Create account</p>
+      
+      <Button title='Create account' className='registerButton' onClick={handleNavigate} />
 
     </Form>
 

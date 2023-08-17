@@ -4,6 +4,9 @@ export const Container = styles.div`
 
     background-color: ${ ({theme}) => theme.COLORS.FORM_BG };
     padding: 24px 15px;
+    @media (min-width: 765px) {
+        padding: 24px 65px;
+    }
     margin-bottom: 0;
 
     display: flex;

@@ -46,11 +46,11 @@ export const MainContent = styles.div`
         }
     }
 
+
     padding: 40px 20px 200px;
     width: 100%;
    
     h1 {
-
         font-family: Poppins;
         font-weight: 500;
 
@@ -130,20 +130,17 @@ export const MainContent = styles.div`
                 }
 
                 svg {
-                    cursor: pointer;
                     height: 30px;
                     width: 30px;
                 }
             }
-
         }
 
         .name-input {
-            font-weight: 300;
             opacity: 0;
             animation: topdown 500ms 500ms forwards;
         }
-
+        
         .category-input {
             opacity: 0;
             animation: topdown 500ms 600ms forwards;
@@ -177,7 +174,6 @@ export const MainContent = styles.div`
         }
 
         .price-input {
-            font-weight: 300;
             opacity: 0;
             animation: right-left 500ms 600ms forwards;
         }
@@ -189,24 +185,57 @@ export const MainContent = styles.div`
         animation: downtop 500ms 600ms forwards;
     }
 
+    .buttons {
+
+        margin-top: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+
+        @media (min-width: 1024px) {
+
+            margin-top: 60px;
+
+        }
+
+    }
+
+    .delete-dish-button {
+
+        opacity: 0;
+        animation: downtop 500ms 600ms forwards;
+
+        background-color: ${ ({theme}) => theme.COLORS.INPUT };      
+        width: 100%;
+
+        @media (min-width: 1024px) {
+
+            width: 120px;
+            position: absolute;
+            right: 270px;
+
+        }
+
+    }
+
     .create-dish-button {
 
         opacity: 0;
         animation: downtop 500ms 600ms forwards;
 
-        background-color: ${ ({theme}) => theme.COLORS.PINK };
-        margin-top: 32px;
-        margin-bottom: -100px;
+        background-color: ${ ({theme}) => theme.COLORS.PINK };      
         width: 100%;
 
         @media (min-width: 1024px) {
+
             width: 120px;
             position: absolute;
             right: 120px;
+
         }
         
     }
-
 
 `
 

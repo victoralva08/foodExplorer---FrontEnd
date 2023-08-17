@@ -1,6 +1,6 @@
 import { Container } from './styles'
 
-export function Input ( {title, id, icon:Icon, type, placeholder, ...rest} ) {
+export function Input ( {title, value, id, icon:Icon, type, placeholder, ...rest} ) {
 
     return (
 
@@ -12,7 +12,7 @@ export function Input ( {title, id, icon:Icon, type, placeholder, ...rest} ) {
 
             <div className="input-wrapper">
                 {Icon && <Icon size={20} />}
-                <input placeholder={placeholder} type={type} id={id} />
+                <input placeholder={placeholder} value={value} type={type} id={id} />
             </div>
 
             </label>

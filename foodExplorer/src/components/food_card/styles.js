@@ -6,6 +6,7 @@ export const Container = styles.div`
     flex-direction: column;
     align-items: center;
     border-radius: 8px;
+    
 
     background-color: ${ ({theme}) => theme.COLORS.FOOD_CARD_BG };
 
@@ -70,6 +71,7 @@ export const Container = styles.div`
         max-width: 200px;
         max-height: 200px;
         margin-bottom: 15px;
+        border-radius: 10%;
     }
 
     h2 {
@@ -81,6 +83,7 @@ export const Container = styles.div`
         text-align: center;
 
         padding-bottom: 20px;
+        cursor: pointer;
 
     }
 
@@ -128,4 +131,13 @@ export const Container = styles.div`
 
     }
 
+    .edit-button {
+        position: relative;
+        left: 120px;
+        top: -5px;
+    }
+
+`
+
+export const InputWrapper = styles.div`
 `

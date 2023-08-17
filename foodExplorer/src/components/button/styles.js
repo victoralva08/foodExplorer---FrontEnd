@@ -16,7 +16,7 @@ export const Container = styles.button`
     font-weight: 700;
 
     &:focus{
-        outline: 1px solid ${ ({theme}) => theme.COLORS.TEXT };
+        filter: brightness(1.5)
     }
 
     `

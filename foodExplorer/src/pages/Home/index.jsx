@@ -12,21 +12,19 @@ import { api } from '../../services/api.js'
 export default function Home () { 
 
     const [ dishes, setDishes ] = useState([])
-    const [ search, setSearch ] = useState('')
     
     const [ mealDishes, setMealDishes ] = useState([])
     const [ dessertsDishes, setDessertDishes ] = useState([])
     const [ drinksDishes, setDrinkDishes ] = useState([])
 
+    async function fetchDishes() {
+
+        const response = await api.get(`/dishes`)
+        setDishes(response.data)
+
+    }
+
     useEffect( () => {
-
-
-        async function fetchDishes() {
-
-            const response = await api.get(`/dishes?dishName=${search}`)
-            setDishes(response.data)
-
-        }
 
         fetchDishes()
     
@@ -35,6 +33,7 @@ export default function Home () {
     useEffect( () => {
 
         dishes.map( dish => {
+
             if (dish.category === "Meals") {
     
                 setMealDishes(dishes.filter( dish => dish.category === "Meals"))
@@ -43,18 +42,19 @@ export default function Home () {
     
                 setDessertDishes(dishes.filter( dish => dish.category === "Desserts"))
     
-            } else if (dish.category === "Drinks") {
+            } else {
     
                 setDrinkDishes(dishes.filter( dish => dish.category === "Drinks"))
     
             }
+            
         })
 
     }, [dishes])
 
        
     return (
-        <>
+    <>
         <Header onChange={ (e) => setSearch(e.target.value) } />
         
         <Container>
@@ -144,7 +144,7 @@ export default function Home () {
         </Container>
 
         <Footer />
-        </>
+    </>
 
     )
 

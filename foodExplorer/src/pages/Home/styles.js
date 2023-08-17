@@ -1,5 +1,5 @@
 import styles from 'styled-components'
-import fruits_image from "../../assets/fruits_image.png"
+
 
 export const Container = styles.div`
 
@@ -7,17 +7,40 @@ export const Container = styles.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 
-    @media (min-width: 1024px) {
-        padding: 0 30px;
+
+    @keyframes topdown{
+        0%{
+            transform: translateY(-500px);
+        }
+
+        100%{
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes right-left{
+        0%{
+            transform: translateX(500px);
+        }
+
+        100%{
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 
     
-    `
-    export const OpeningCard = styles.div`
+   
+    
+`
+export const OpeningCard = styles.div`
 
     &::before {
+
+        opacity: 0;
+        animation: topdown 500ms 100ms forwards;
         
         background: linear-gradient(180deg, #091E26 0%, #00131C 100%);
         content: "";
@@ -51,24 +74,30 @@ export const Container = styles.div`
     align-items: center;
     gap: 5px; 
     
-    margin-top: 60px; 
+    margin-top: 80px; 
         
         
     > img { 
+
+        z-index: -1;
+        opacity: 0;
+        animation: topdown 1000ms 100ms forwards;
 
         width: 40vw; 
         position: relative;
         top: clamp(-50px, -3vw, -5px);
         left: clamp(-10px, -3vw, -5px);
 
-
     }
     
     
     .texts{
+
+        opacity: 0;
+        animation: right-left 2000ms 100ms forwards;
         
         position: relative;
-
+        z-index: -1;
         @media (min-width: 1024px) {
             right: 25px;
         }
@@ -82,6 +111,7 @@ export const Container = styles.div`
             
     
         h1 {
+            
             font-family: Poppins;
             font-weight: 400;
             font-size: clamp(15px, 4vw, 38px);
@@ -118,11 +148,19 @@ export const Container = styles.div`
 `
 
 export const List = styles.div`
-    
+
+    opacity: 0;
+    animation: topdown 500ms 100ms forwards;
+
+    z-index: 1;
     width: 100vw;
     margin: 22px 0 85px 0;
     
     section {
+
+        opacity: 0;
+        animation: right-left 1000ms 700ms forwards;
+
         .section-title {
 
             padding-left: 25px;
@@ -136,7 +174,6 @@ export const List = styles.div`
     }
 
    
-
     @media (min-width: 768px){
 
         section {

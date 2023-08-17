@@ -10,37 +10,66 @@ export const Container = styles.div`
         }
     }
 
+    @keyframes topdown{
+        0%{
+            transform: translateY(-500px);
+        }
+
+        100%{
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes right-left{
+        0%{
+            transform: translateX(500px);
+        }
+
+        100%{
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
 `
 
 export const MainContent = styles.div`
 
-padding: 30px; 
+    opacity: 0;
+    animation: topdown 1000ms 100ms forwards;
 
-@media (min-width: 1024px) {
-    padding: 120px;
-}
-              
-display: flex;
-flex-direction: column;
+    padding: 30px; 
 
-align-items: center;
-gap: 50px;
-justify-content: center;
+    @media (min-width: 1024px) {
+        padding: 120px;
+    }
+                
+    display: flex;
+    flex-direction: column;
 
-@media (min-width: 1024px) {
-    flex-direction: row;
-}
+    align-items: center;
+    gap: 50px;
+    justify-content: center;
 
-img {
-    width: 250px;
-    height: 250px;
-}
+    @media (min-width: 1024px) {
+        flex-direction: row;
+    }
+
+    img {
+        width: 250px;
+        height: 250px;
+    }
 
 
 
 `
 
 export const DishInformation = styles.div`
+
+    opacity: 0;
+    animation: right-left 800ms 1000ms forwards;
+
     font-family: Poppins;
 
     display: flex;
@@ -87,7 +116,7 @@ export const DishInformation = styles.div`
 
 `
 
-export const Tags = styles.ul`
-    list-style: none;
-    margin-bottom: 35px;
+export const Ingredients = styles.div`
+    display: flex;
+    margin-bottom: 15px;
 `

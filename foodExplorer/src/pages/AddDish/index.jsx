@@ -13,24 +13,28 @@ import ButtonText from '../../components/button_text'
 import Select from '../../components/select'
 
 import { useState } from 'react'
-import { useAuthContext } from "../../authHook/context.jsx"
 
 import { api } from '../../services/api'
-
+import { useNavigate } from 'react-router-dom'
 
 export default function AddDish() {
 
     const [ dishImageFile, setDishImageFile ] = useState(null)
-    const [ dishId, setDishId ] = useState('')
 
     const [ name, setName ] = useState('')
-    const [ category, setCategory ] = useState('')
+    const [ category, setCategory ] = useState('Meals')
     
     const [ ingredients, setIngredients ] = useState([])
     const [ newIngredient, setNewIngredient ] = useState('')
 
-    const [ price, setPrice ] = useState('')
+    const [ price, setPrice ] = useState(null)
     const [ description, setDescription ] = useState('')
+
+    const navigate = useNavigate()
+    
+    function handleNavigateToHomeInterface() {
+        navigate(-1)
+    }
 
     
     function handleAddDishImage(event) {
@@ -40,7 +44,6 @@ export default function AddDish() {
         // checkpoint for image file extensions
 
         const fileExtension = String(file.name.split('.')[1])
-        console.log(fileExtension)
 
         if (fileExtension !== 'png' && fileExtension !== 'jpg' && fileExtension !== 'jpeg') {
             return alert('Please, upload a valid image file (png, jpg or jpeg).')
@@ -52,22 +55,28 @@ export default function AddDish() {
 
     async function handleCreateDish () {
 
-        console.log(category)
         const dishData = {
             name, category, description, ingredients, price 
+        }
+
+        if (!dishImageFile ) {
+            return alert("Please, fill all dish information. Your dish must also have an image to display.")
+        } else if (  !name || !category || !description || !ingredients || !price ) {
+            return alert("Please, fill all dish information.")
         }
         
         const dishCreateResponse  = await api.post("/dishes", dishData)
         const dish_id = dishCreateResponse.data
-        alert("The dish was sucessfully created.")
 
         // saving encrypted image file in database 
 
         const imageFileUploadForm = new FormData()
         imageFileUploadForm.append("dish_image", dishImageFile)
 
-        const response = await api.patch(`/dishes/dish_image/${dish_id}`, imageFileUploadForm)
-        console.log(response.data)
+        await api.patch(`/dishes/dish_image/${dish_id}`, imageFileUploadForm)
+
+        alert("The dish was sucessfully created.")
+        handleNavigateToHomeInterface()
         
     }
         
@@ -86,6 +95,13 @@ export default function AddDish() {
     function handleRemoveIngredient (ingredientToBeDeleted) {
         setIngredients(ingredients.filter( ingredient => ingredient !== ingredientToBeDeleted ))
     }
+
+    function formatPriceValue(inputPrice) {
+
+        const numericValue = inputPrice.replace(/[^\d\.\,]/g, '')
+        setPrice(numericValue)
+
+    }
     
     return (
         <>
@@ -93,9 +109,9 @@ export default function AddDish() {
 
             <MainContent>
 
-            <Button icon={PiCaretLeftBold} title="return" />
+            <Button className='interface-title' icon={PiCaretLeftBold} title="return" onClick={handleNavigateToHomeInterface} />
             
-            <h1>Add Dish</h1>
+            <h1 className='interface-title'>Add Dish</h1>
 
             <div className="input-wrapper-row0">
 
@@ -118,8 +134,8 @@ export default function AddDish() {
 
                 </div>
 
-                <Input title="Name" onChange={ (e) => setName(e.target.value)} />
-                <Select id="Category" onChange={ (e) => setCategory(e.target.value)} />
+                <Input title="Name" className="name-input" placeholder="Name your dish" onChange={ (e) => setName(e.target.value)} />
+                <Select className="category-input" value={category} onChange={ (e) => setCategory(e.target.value)} />
             
             </div>
 
@@ -156,11 +172,11 @@ export default function AddDish() {
 
                 </Ingredients>
 
-                <Input title="Price" onChange={ e => setPrice(e.target.value) }/>
+                <Input title="Price" className="price-input" placeholder='R$' value={price} onChange={ e => formatPriceValue(e.target.value) }/>
 
             </div>
 
-            <Textarea placeholder="Describe your dish" onChange={ e => setDescription(e.target.value) } />
+            <Textarea className="description-input" placeholder="Describe your dish" onChange={ e => setDescription(e.target.value) } />
 
 
             <ButtonText title="Create dish" className="create-dish-button" onClick={ handleCreateDish } />

@@ -17,7 +17,7 @@ export const Container = styles.div`
         color: ${ ({theme}) => theme.COLORS.INPUT_TITLE };
 
         .input-wrapper {
-
+           
             display: flex;
             align-items: center;
             justify-content: center;
@@ -25,6 +25,10 @@ export const Container = styles.div`
             
             background-color: ${ ({theme}) => theme.COLORS.INPUT };
             border-radius: 8px;
+
+            &:focus-within {
+                outline: 1px solid ${({ theme }) => theme.COLORS.INPUT_TEXT};
+            }
             
 
         }
@@ -49,6 +53,8 @@ export const Container = styles.div`
             &:placeholder {
                 color: ${ ({theme}) => theme.COLORS.INPUT_TEXT };
             }
+
+            
 
            
             

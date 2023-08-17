@@ -8,7 +8,10 @@ export const Container = styles.div`
 
     label {
         color: ${ ({theme}) => theme.COLORS.INPUT_TITLE };
+        font-weight: 300;
     }
+
+    
 
     select {
         background-color: ${ ({theme}) => theme.COLORS.INPUT };
@@ -33,7 +36,9 @@ export const Container = styles.div`
             color: ${ ({theme}) => theme.COLORS.INPUT_TEXT };
         }
 
-        
+        &:focus {
+            outline: 1px solid ${({ theme }) => theme.COLORS.INPUT_TEXT};
+        }
 
     }
 `

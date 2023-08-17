@@ -24,5 +24,4 @@ white-space: nowrap;
     outline: 1px solid ${ ({theme}) => theme.COLORS.TEXT };
 }
 
-
 `

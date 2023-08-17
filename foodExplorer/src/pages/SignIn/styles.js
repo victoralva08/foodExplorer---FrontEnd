@@ -1,7 +1,6 @@
 import styles from 'styled-components'
 
-export const Container = styles.div`
-    
+export const Container = styles.div`   
 
     display: flex;
     flex-direction: column;
@@ -19,13 +18,30 @@ export const Container = styles.div`
         
         margin: 60px 40px;
     }
+
+    @keyframes right-left{
+        0%{
+            transform: translateX(500px);
+        }
+
+        100%{
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
     
 
 `
 
 export const Form = styles.div`
 
+    opacity: 0;
+    animation: right-left 500ms 100ms forwards;
 
+    .registerButton {
+        font-size: 16px;
+        font-weight: 300;
+    }
 
     display: flex;
     flex-direction: column;
@@ -89,6 +105,8 @@ export const Form = styles.div`
         
         border: 1px solid ${ ({theme}) => theme.COLORS.INPUT_TITLE };;
         border-radius: 6px;
+
+        
     
     }
 
@@ -104,6 +122,10 @@ export const Form = styles.div`
         font-family: Roboto;
         font-size: 16px;
         color: ${ ({theme}) => theme.COLORS.INPUT_TITLE };
+
+        &focus {
+            outline: 1px solid red;
+        }
         
     }
 }

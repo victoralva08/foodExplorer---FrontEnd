@@ -21,13 +21,30 @@ export const Container = styles.div`
         
         margin: 20px 40px;
     }
+
+    @keyframes right-left{
+        0%{
+            transform: translateX(500px);
+        }
+
+        100%{
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
     
 
 `
 
 export const Form = styles.div`
 
+    opacity: 0;
+    animation: right-left 500ms 100ms forwards;
 
+    .returnButton {
+        font-size: 16px;
+        font-weight: 300;
+    }
 
     display: flex;
     flex-direction: column;
@@ -98,7 +115,8 @@ export const Form = styles.div`
             background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_916_20)'%3E%3Cpath d='M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z' fill='red'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_916_20'%3E%3Crect width='24' height='24' fill='white'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E%0A");
         }
 
-        label{
+        label {
+
             display: flex;
             align-items: center;
             margin-left: -15px;
