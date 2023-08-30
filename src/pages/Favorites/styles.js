@@ -38,7 +38,7 @@ export const Container = styles.div`
     }
 
     p {
-        margin-left: 1.875em;
+        margin-left: .7em;
         font-family: Poppins;
         font-size: 1.25em;
     }

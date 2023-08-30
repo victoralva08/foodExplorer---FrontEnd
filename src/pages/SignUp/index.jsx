@@ -10,6 +10,9 @@ import { useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function SignUp() {
 
   const [ isAdmin, setIsAdmin ] = useState(null)
@@ -22,7 +25,7 @@ function SignUp() {
   function handleSignUp() {
 
     if (!name || !email || !password) {
-      return alert("Please, fill all inputs.")
+      return toast.error("Please, fill all inputs.")
     }
 
     console.log(isAdmin, name, email, password )
@@ -30,25 +33,24 @@ function SignUp() {
     const isPasswordValid = password.length
 
     if (isPasswordValid < 6) {
-      return alert("Your password must have at least 6 characters.")
+      return toast.error("Your password must have at least 6 characters.")
     }
 
     api.post("/users", { isAdmin, name, email, password })
     .then(() => {
 
-      alert("User successfully registered.")
+      handleNavigate()
+      toast("User successfully registered.")
 
     }).catch(error => {
 
       if (error.response) {
-        alert(error.response.data.message)
+        toast.error(error.response.data.message)
       } else {
-        alert("User could not be registered.")
+        toast.error("User could not be registered.")
       }
 
     })
-
-    handleNavigate()
 
   }
 
@@ -57,7 +59,9 @@ function SignUp() {
   }
 
   return (
+    <>
 
+    <ToastContainer />
     <Container>
 
     <Logo className="logo" />
@@ -86,6 +90,7 @@ function SignUp() {
     </Form>
 
     </Container>
+    </>
   )
 }
 

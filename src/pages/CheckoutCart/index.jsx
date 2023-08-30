@@ -29,6 +29,7 @@ export default function CheckoutCart () {
  
     async function fetchOrderDishes () {
         setOrderedDishesResponse( await api.get('/cart/cart-orders') )
+        setTotalPrice(0)
     } 
 
     function handleReturn() {
@@ -39,12 +40,17 @@ export default function CheckoutCart () {
         setRefreshInterface(true)
     }
 
-    function calculateTotalPrice () {
+    async function calculateTotalPrice () {
 
-        orderedDishes.map( orderedDish => {
-            const price = Number(orderedDish.dishPrice * orderedDish.dishQuantity)
-            setTotalPrice( prevState => prevState + price )
-        })
+        await fetchOrderDishes()
+        .then(
+
+            orderedDishes.map( orderedDish => {
+                const price = Number(orderedDish.dishPrice * orderedDish.dishQuantity)
+                setTotalPrice( prevState => prevState + price )
+            })
+
+        )
 
     }
 
@@ -60,7 +66,6 @@ export default function CheckoutCart () {
         if (orderedDishesResponse.data) {
 
             setOrderedDishes(orderedDishesResponse.data) 
-            setTotalPrice(0)
             calculateTotalPrice() 
         }
 

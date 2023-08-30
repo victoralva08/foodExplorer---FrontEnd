@@ -7,6 +7,9 @@ import { useState, useEffect } from 'react'
 import { store } from '../reduxHook/store'
 import { Provider } from 'react-redux';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function AuthenticatedProvider({ children }) {
 
     const [ userContextData, setUserContextData ] = useState({})
@@ -28,10 +31,10 @@ function AuthenticatedProvider({ children }) {
         }   catch (error) {
 
             if (error.response) {
-                alert(error.response.data.message)
+                toast.error(error.response.data.message)
             } else {
                 console.log(error)
-                alert('It is not possible to log in.')
+                toast.error('It is not possible to log in.')
             }
 
         }

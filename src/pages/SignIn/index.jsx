@@ -10,6 +10,9 @@ import { useAuthContext } from "../../authHook/context.jsx"
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function SignIn() {
 
@@ -20,11 +23,11 @@ function SignIn() {
   function handleSignIn() {
 
     if (!email && !password) {
-      return alert("Please, inform your login information.")
+      return  toast.error("Please, inform your login information.")
     } else if (!password) {
-      return alert("Please, inform your password.")
+      return toast.error("Please, inform your password.")
     } else if (!email) {
-      return alert("Please, inform your email.")
+      return toast.error("Please, inform your email.")
     }
 
     contextDataObject.signIn({ email, password })
@@ -52,6 +55,8 @@ function SignIn() {
 
   return (
 
+    <>
+    <ToastContainer />
     <Container>
 
     <Logo className='logo' />
@@ -73,11 +78,16 @@ function SignIn() {
 
       <ButtonText className="signIn-button" title="Sign In" onClick={handleSignIn} />
       
+      
       <Button title='Create account' className='registerButton' onClick={handleNavigate} />
 
     </Form>
 
+    
+
     </Container>
+
+    </>
   )
 }
 

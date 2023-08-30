@@ -17,6 +17,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 
 import { api } from '../../services/api'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function EditDish() {
 
@@ -66,20 +69,20 @@ export default function EditDish() {
         try {
 
             if (  !name || !category || !description || ingredients.length === 0 || !price ) {
-                return alert("Please, fill all dish information.")
+                return toast.error("Please, fill all dish information.")
             }
 
             if ( newIngredient ) {
-                return alert("Your ingredient wasn't added.")
+                return toast.error("Your ingredient wasn't added.")
             }
 
             await api.put(`/dishes/${params.id}`, dishUpdated)
-            alert("Dish updated.")
+            toast("Dish updated.")
 
         } catch (error) {
 
             if(error.response) {
-            alert(error.response.data.message)
+            toast.error(error.response.data.message)
             }
            
         }
@@ -97,7 +100,7 @@ export default function EditDish() {
         const fileExtension = String(file.name.split('.')[1])
 
         if (fileExtension !== 'png' && fileExtension !== 'jpg' && fileExtension !== 'jpeg') {
-            return alert('Please, upload a valid image file (png, jpg or jpeg).')
+            return toast.error('Please, upload a valid image file (png, jpg or jpeg).')
         }
 
         setDishImageFile(file)
@@ -107,7 +110,7 @@ export default function EditDish() {
     function handleAddIngredient () {
 
         if (!newIngredient){
-            alert("Please, inform the ingredient.")
+            toast.error("Please, inform the ingredient.")
             return
         } 
 
@@ -129,12 +132,12 @@ export default function EditDish() {
         try {
 
             await api.delete(`/dishes/${params.id}`)
-            alert("Dish deleted.")
+            toast("Dish deleted.")
 
         } catch (error) {
 
             if(error.response) {
-            alert(error.response.data.message)
+            toast.error(error.response.data.message)
             }
            
         }
@@ -175,6 +178,7 @@ export default function EditDish() {
 
     return (
         <>
+            <ToastContainer />
             <Header />
 
             <MainContent>

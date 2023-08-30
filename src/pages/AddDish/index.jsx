@@ -17,6 +17,9 @@ import { useState } from 'react'
 import { api } from '../../services/api'
 import { useNavigate } from 'react-router-dom'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function AddDish() {
 
     const [ dishImageFile, setDishImageFile ] = useState(null)
@@ -45,7 +48,7 @@ export default function AddDish() {
         const fileExtension = String(file.name.split('.')[1])
 
         if (fileExtension !== 'png' && fileExtension !== 'jpg' && fileExtension !== 'jpeg') {
-            return alert('Please, upload a valid image file (png, jpg or jpeg).')
+            return toast.error('Please, upload a valid image file (png, jpg or jpeg).')
         }
 
         setDishImageFile(file)
@@ -59,13 +62,13 @@ export default function AddDish() {
         }
 
         if (!dishImageFile ) {
-            return alert("Please, fill all dish information. Your dish must also have an image to display.")
+            return toast.error("Please, fill all dish information. Your dish must also have an image to display.")
         } else if (  !name || !category || !description || ingredients.length === 0 || !price ) {
-            return alert("Please, fill all dish information.")
+            return toast.error("Please, fill all dish information.")
         }
 
         if ( newIngredient ) {
-            return alert("Your ingredient wasn't added.")
+            return toast.error("Your ingredient wasn't added.")
         }
         
         const dishCreateResponse  = await api.post("/dishes", dishData)
@@ -78,7 +81,7 @@ export default function AddDish() {
 
         await api.patch(`/dishes/dish_image/${dish_id}`, imageFileUploadForm)
 
-        alert("The dish was sucessfully created.")
+        toast("The dish was sucessfully created.")
         handleNavigateToHomeInterface()
         
     }
@@ -86,7 +89,7 @@ export default function AddDish() {
     function handleAddIngredient () {
 
         if (!newIngredient){
-            alert("Please, inform the ingredient.")
+            toast.error("Please, inform the ingredient.")
             return
         } 
 
@@ -107,6 +110,7 @@ export default function AddDish() {
     
     return (
         <>
+            <ToastContainer />
             <Header />
 
             <MainContent>
