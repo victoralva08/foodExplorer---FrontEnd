@@ -9,6 +9,10 @@ import { useEffect, useState } from 'react'
 import { api } from '../../services/api.js'
 
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 export default function Home () { 
 
     const [ dishes, setDishes ] = useState([])
@@ -55,6 +59,8 @@ export default function Home () {
        
     return (
     <>
+
+
         <Header onChange={ (e) => setSearch(e.target.value) } />
         
         <Container>
