@@ -15,11 +15,6 @@ import { updateValue } from '../../reduxHook/store'
 
 import { useAuthContext } from "../../authHook/context.jsx"
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
-
 export default function FoodCard({ id, name, category, image, description, price, ...rest }) {
 
     const [ quantity, setQuantity ] = useState(1)
@@ -52,7 +47,6 @@ export default function FoodCard({ id, name, category, image, description, price
         await api.post(`/cart/${id}`, dishData)
         .then(() => {
             
-            toast("Dish added to cart.")
             fetchCheckoutCartQuantity()
             
         })
@@ -78,11 +72,6 @@ export default function FoodCard({ id, name, category, image, description, price
         }
         
         await api.post(`/favorites/${id}`, dishData)
-        .then(() => {
-        
-            toast("Dish added to favorites!")
-        
-        })
         .catch(error => {
             console.log(error)
         })
@@ -93,11 +82,6 @@ export default function FoodCard({ id, name, category, image, description, price
     
     
         await api.delete(`/favorites/${id}`)
-        .then(() => {
-        
-            toast("Dish removed from favorites!")
-        
-        })
         .catch(error => {
             console.log(error)
         })
@@ -156,8 +140,6 @@ export default function FoodCard({ id, name, category, image, description, price
 
     return (
 
-        <>
-        <ToastContainer />
         <Container {...rest}>
 
             {
@@ -210,7 +192,6 @@ export default function FoodCard({ id, name, category, image, description, price
 
 
         </Container>
-        </>
     )
 
 
